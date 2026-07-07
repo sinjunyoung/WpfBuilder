@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>StubPatcherBuilder</AssemblyName>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;SYSLIB1054</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;SYSLIB1054</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Images\Build.png" />
+    <None Remove="Assets\Images\Folder.png" />
+    <None Remove="Assets\Images\Minus.png" />
+    <None Remove="Assets\Images\Plus.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\Build.png" />
+    <Resource Include="Assets\Images\Folder.png" />
+    <Resource Include="Assets\Images\Minus.png" />
+    <Resource Include="Assets\Images\Plus.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 빌드된 StubPatcher.exe를 리소스로 내장. 우분투에서 뽑은 exe를 여기 복사해두면 됨 -->
+    <None Update="Resources\StubPatcher.exe" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="StubPatcher.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <!-- xdelta3.dll (원본/수정본 diff 생성용) - 프로젝트 루트에 복사해두면 빌드 출력 폴더로 자동 복사됨 -->
+    <None Update="xdelta3.dll" CopyToOutputDirectory="PreserveNewest" Condition="Exists('xdelta3.dll')" />
+  </ItemGroup>
+
+</Project>

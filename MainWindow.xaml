@@ -1,0 +1,97 @@
+<Window x:Class="WpfBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WpfBuilder"
+        xmlns:controls="clr-namespace:WpfBuilder.Controls"
+        xmlns:converters="clr-namespace:WpfBuilder.Converters"
+        Title="StubPatcher Builder" 
+        Height="650" 
+        Width="850"
+        Background="#1E1E1E">
+    
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="6" Padding="12" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="패처 창 제목 :" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBox Grid.Column="1" x:Name="TxtWindowTitle" Margin="4,0" Text="한글 패치 v1.0"/>
+                <Label Grid.Column="2" Content="게임 아이콘(.ico) :" VerticalAlignment="Center" FontWeight="Bold" Margin="16,0,0,0"/>
+                <TextBox Grid.Column="3" x:Name="TxtIconPath" Margin="4,0" IsReadOnly="True" AllowDrop="True" Drop="IconDrop" DragOver="FileDragOver"/>
+                <Button Grid.Column="4" Style="{StaticResource GrayButton}" Width="68" Height="38" Click="BtnPickIcon_Click" Margin="4,0,0,0">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Assets/Images/Folder.png" Width="32" Height="32" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,0,0,12" Cursor="">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,6">
+                <Button Grid.Column="4" Style="{StaticResource GrayButton}" Click="BtnAddTab_Click" Width="68" Height="38" Margin="4,0,0,0">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Assets/Images/Plus.png" Width="32" Height="32" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="4" Style="{StaticResource GrayButton}" Click="BtnRemoveTab_Click" Width="68" Height="38" Margin="4,0,0,0">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="/Assets/Images/Minus.png" Width="32" Height="32" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+
+            <TabControl x:Name="TabPatchList" Grid.Row="1">
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Header}"/>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <controls:PatchTabItem />
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>            
+            <TextBlock x:Name="TxtStatus" Grid.Column="0" Text="준비 완료" VerticalAlignment="Center" FontWeight="Bold" Foreground="#666666"/>
+            <ProgressBar x:Name="BuildProgress" Grid.Column="1" Height="20" Margin="16,0" VerticalAlignment="Center"/>
+            <Button Grid.Column="2" Style="{StaticResource GrayButton}" Click="BtnBuild_Click" Width="68" Height="38" Margin="4,0,0,0">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Image Source="/Assets/Images/Build.png" Width="32" Height="32" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
