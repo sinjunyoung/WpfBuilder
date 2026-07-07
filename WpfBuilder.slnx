@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="../RomForge/Common/Common.csproj" />
+  <Project Path="../RomForge/Patch.Core/Patch.Core.csproj" />
   <Project Path="WpfBuilder.csproj" />
 </Solution>

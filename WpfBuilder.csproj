@@ -30,6 +30,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RomForge\Common\Common.csproj" />
+    <ProjectReference Include="..\RomForge\Patch.Core\Patch.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Images\Build.png" />
     <Resource Include="Assets\Images\Folder.png" />
     <Resource Include="Assets\Images\Minus.png" />
