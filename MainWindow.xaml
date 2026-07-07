@@ -8,7 +8,7 @@
         Height="650" 
         Width="850"
         Background="#1E1E1E">
-    
+
     <Grid Margin="16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -26,9 +26,13 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="패처 창 제목 :" VerticalAlignment="Center" FontWeight="Bold"/>
-                <TextBox Grid.Column="1" x:Name="TxtWindowTitle" Margin="4,0" Text="한글 패치 v1.0"/>
+                <TextBox Style="{StaticResource BaseTextBoxStyle}" Grid.Column="1" x:Name="TxtWindowTitle" Margin="4,0" Text="한글 패치 v1.0"/>
                 <Label Grid.Column="2" Content="게임 아이콘(.ico) :" VerticalAlignment="Center" FontWeight="Bold" Margin="16,0,0,0"/>
-                <TextBox Grid.Column="3" x:Name="TxtIconPath" Margin="4,0" IsReadOnly="True" AllowDrop="True" Drop="IconDrop" DragOver="FileDragOver"/>
+
+                <Border Grid.Column="3" Margin="4,0" Background="#12FFFFFF" BorderBrush="#30FFFFFF" CornerRadius="6" AllowDrop="True" PreviewDragEnter="IconDragEnter" PreviewDragOver="IconDragOver" PreviewDrop="IconDrop">
+                    <TextBox Style="{StaticResource HintTextBoxStyle}" x:Name="TxtIconPath" VerticalContentAlignment="Center"/>
+                </Border>
+
                 <Button Grid.Column="4" Style="{StaticResource GrayButton}" Width="68" Height="38" Click="BtnPickIcon_Click" Margin="4,0,0,0">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -82,7 +86,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>            
+            </Grid.ColumnDefinitions>
             <TextBlock x:Name="TxtStatus" Grid.Column="0" Text="준비 완료" VerticalAlignment="Center" FontWeight="Bold" Foreground="#666666"/>
             <ProgressBar x:Name="BuildProgress" Grid.Column="1" Height="20" Margin="16,0" VerticalAlignment="Center"/>
             <Button Grid.Column="2" Style="{StaticResource GrayButton}" Click="BtnBuild_Click" Width="68" Height="38" Margin="4,0,0,0">

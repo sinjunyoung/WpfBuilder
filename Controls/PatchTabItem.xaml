@@ -15,47 +15,50 @@
                 <UniformGrid Columns="3" Margin="0,0,0,16">
                     <StackPanel Margin="0,0,8,0">
                         <TextBlock Text="게임명" Margin="0,0,0,4" FontWeight="Bold"/>
-                        <TextBox Text="{Binding GameName, UpdateSourceTrigger=PropertyChanged}" Padding="4"/>
+                        <TextBox Style="{StaticResource BaseTextBoxStyle}" Text="{Binding GameName, UpdateSourceTrigger=PropertyChanged}" Padding="4"/>
                     </StackPanel>
                     <StackPanel Margin="4,0,4,0">
                         <TextBlock Text="배경 이미지 (.png/.jpg)" Margin="0,0,0,4" FontWeight="Bold"/>
-                        <DockPanel AllowDrop="True" Drop="BgDrop" DragOver="FileDragOver">
+                        <DockPanel Background="Transparent" AllowDrop="True"
+                                   PreviewDragEnter="FileDragEnter" PreviewDragOver="FileDragOver" PreviewDrop="BgDrop">
                             <Button Style="{StaticResource GrayButton}" Width="68" Height="38" DockPanel.Dock="Right" Click="BtnPickBackground_Click" Margin="4,0,0,0">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="/Assets/Images/Folder.png" Width="32" Height="32" Stretch="Uniform" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                </StackPanel>
+                                <Image Source="/Assets/Images/Folder.png" Width="32" Height="32"/>
                             </Button>
-                            <TextBox Text="{Binding BgPath, UpdateSourceTrigger=PropertyChanged}" Padding="4" IsReadOnly="True" Margin="0,0,4,0"/>
+                            <TextBox Text="{Binding BgPath, UpdateSourceTrigger=PropertyChanged}" 
+                                     Style="{StaticResource HintTextBoxStyle}"
+                                     AllowDrop="True" PreviewDragOver="FileDragOver" PreviewDrop="BgDrop"/>
                         </DockPanel>
                     </StackPanel>
                     <StackPanel Margin="8,0,0,0">
                         <TextBlock Text="체인지 로그" Margin="0,0,0,4" FontWeight="Bold"/>
-                        <TextBox Text="{Binding ChangeLog, UpdateSourceTrigger=PropertyChanged}"
-                             Padding="4" AcceptsReturn="True" TextWrapping="Wrap"
-                             Height="60" VerticalScrollBarVisibility="Auto"/>
+                        <TextBox Style="{StaticResource BaseTextBoxStyle}" Text="{Binding ChangeLog, UpdateSourceTrigger=PropertyChanged}"
+                                 Padding="4" AcceptsReturn="True" TextWrapping="Wrap"
+                                 Height="60" VerticalScrollBarVisibility="Auto"/>
                     </StackPanel>
                 </UniformGrid>
 
                 <Separator Margin="0,4,0,16" Background="#EEEEEE"/>
 
                 <TextBlock Text="원본 파일 선택" Margin="0,0,0,4" FontWeight="Bold"/>
-                <DockPanel Margin="0,0,0,16" AllowDrop="True" Drop="OriginalDrop" DragOver="FileDragOver">
+                <DockPanel Margin="0,0,0,16" Background="Transparent" AllowDrop="True"
+                           PreviewDragEnter="FileDragEnter" PreviewDragOver="FileDragOver" PreviewDrop="OriginalDrop">
                     <Button Style="{StaticResource GrayButton}" Width="68" Height="38" DockPanel.Dock="Right" Click="BtnPickOriginal_Click" Margin="4,0,0,0">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="/Assets/Images/Folder.png" Width="32" Height="32" Stretch="Uniform" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </StackPanel>
+                        <Image Source="/Assets/Images/Folder.png" Width="32" Height="32"/>
                     </Button>
-                    <TextBox Text="{Binding OriginalPath, UpdateSourceTrigger=PropertyChanged}" Padding="4" IsReadOnly="True" Margin="0,0,8,0"/>
+                    <TextBox Text="{Binding OriginalPath, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource HintTextBoxStyle}"
+                             AllowDrop="True" PreviewDragOver="FileDragOver" PreviewDrop="OriginalDrop"/>
                 </DockPanel>
 
-                <TextBlock Text="수정본 파일 선택" Margin="0,0,0,4" FontWeight="Bold"/>
-                <DockPanel Margin="0,0,0,8" AllowDrop="True" Drop="ModifiedDrop" DragOver="FileDragOver">
+                <TextBlock Text="수정본 파일 선택" Margin="0,0,0,8" FontWeight="Bold"/>
+                <DockPanel Margin="0,0,0,8" Background="Transparent" AllowDrop="True"
+                           PreviewDragEnter="FileDragEnter" PreviewDragOver="FileDragOver" PreviewDrop="ModifiedDrop">
                     <Button Style="{StaticResource GrayButton}" Width="68" Height="38" DockPanel.Dock="Right" Click="BtnPickModified_Click" Margin="4,0,0,0">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Image Source="/Assets/Images/Folder.png" Width="32" Height="32" Stretch="Uniform" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
-                        </StackPanel>
+                        <Image Source="/Assets/Images/Folder.png" Width="32" Height="32"/>
                     </Button>
-                    <TextBox Text="{Binding ModifiedPath, UpdateSourceTrigger=PropertyChanged}" Padding="4" IsReadOnly="True" Margin="0,0,8,0"/>
+                    <TextBox Text="{Binding ModifiedPath, UpdateSourceTrigger=PropertyChanged}" 
+                             Style="{StaticResource HintTextBoxStyle}"
+                             AllowDrop="True" PreviewDragOver="FileDragOver" PreviewDrop="ModifiedDrop"/>
                 </DockPanel>
             </StackPanel>
         </ScrollViewer>

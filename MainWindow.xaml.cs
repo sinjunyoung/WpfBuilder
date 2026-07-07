@@ -25,7 +25,6 @@ public partial class MainWindow : Window
         _tabs.Add(new DiskRow());
 
         var defaultStub = Path.Combine(AppContext.BaseDirectory, "StubPatcher.exe");
-
         if (File.Exists(defaultStub))
             _stubPath = defaultStub;
     }
@@ -54,53 +53,26 @@ public partial class MainWindow : Window
         Icon = new System.Windows.Media.Imaging.BitmapImage(new Uri(path));
     }
 
-    private void FileDragOver(object sender, DragEventArgs e)
+    private void IconDragEnter(object sender, DragEventArgs e)
     {
         e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         e.Handled = true;
     }
 
-    private static string? GetFirstDroppedFile(DragEventArgs e) => e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Length > 0 ? files[0] : null;
+    private void IconDragOver(object sender, DragEventArgs e)
+    {
+        e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
+        e.Handled = true;
+    }
 
     private void IconDrop(object sender, DragEventArgs e)
     {
-        var path = GetFirstDroppedFile(e);
-
-        if (path != null)
-            ApplyIcon(path);
-    }
-
-    private void BgDrop(object sender, DragEventArgs e)
-    {
-        if (((FrameworkElement)sender).DataContext is not DiskRow row) 
-            return;
-
-        var path = GetFirstDroppedFile(e);
-
-        if (path != null) 
-            row.BgPath = path;
-    }
-
-    private void OriginalDrop(object sender, DragEventArgs e)
-    {
-        if (((FrameworkElement)sender).DataContext is not DiskRow row) 
-            return;
-
-        var path = GetFirstDroppedFile(e);
-
-        if (path != null) 
-            row.OriginalPath = path;
-    }
-
-    private void ModifiedDrop(object sender, DragEventArgs e)
-    {
-        if (((FrameworkElement)sender).DataContext is not DiskRow row) 
-            return;
-
-        var path = GetFirstDroppedFile(e);
-
-        if (path != null) 
-            row.ModifiedPath = path;
+        if (e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Length > 0)
+        {
+            var path = files.FirstOrDefault(f => f.EndsWith(".ico", StringComparison.OrdinalIgnoreCase));
+            if (path != null) ApplyIcon(path);
+        }
+        e.Handled = true;
     }
 
     private void BtnAddTab_Click(object sender, RoutedEventArgs e)
@@ -110,9 +82,7 @@ public partial class MainWindow : Window
             MessageBox.Show($"탭은 최대 {FooterLayout.MaxDisks}개까지만 지원돼요!");
             return;
         }
-
         var row = new DiskRow();
-
         _tabs.Add(row);
         TabPatchList.SelectedItem = row;
     }
@@ -122,8 +92,7 @@ public partial class MainWindow : Window
         if (TabPatchList.Items.Count <= 1)
             return;
 
-        if (TabPatchList.SelectedItem is DiskRow row) 
-            _tabs.Remove(row);
+        if (TabPatchList.SelectedItem is DiskRow row) _tabs.Remove(row);
     }
 
     private async void BtnBuild_Click(object sender, RoutedEventArgs e)
@@ -202,7 +171,7 @@ public partial class MainWindow : Window
         {
             foreach (var f in tempXdeltaFiles)
             {
-                try { if (File.Exists(f)) File.Delete(f); } catch {  }
+                try { if (File.Exists(f)) File.Delete(f); } catch { /* 임시파일 삭제 실패는 무시 */ }
             }
         }
     }

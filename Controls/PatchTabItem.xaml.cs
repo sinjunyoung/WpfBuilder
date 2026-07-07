@@ -45,6 +45,12 @@ public partial class PatchTabItem : UserControl
             row.ModifiedPath = dlg.FileName;
     }
 
+    private void FileDragEnter(object sender, DragEventArgs e)
+    {
+        e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
+        e.Handled = true;
+    }
+
     private void FileDragOver(object sender, DragEventArgs e)
     {
         e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
@@ -56,34 +62,22 @@ public partial class PatchTabItem : UserControl
 
     private void BgDrop(object sender, DragEventArgs e)
     {
-        if (DataContext is not DiskRow row) 
-            return;
-
+        if (DataContext is not DiskRow row) return;
         var path = GetFirstDroppedFile(e);
-
-        if (path != null) 
-            row.BgPath = path;
+        if (path != null) row.BgPath = path;
     }
 
     private void OriginalDrop(object sender, DragEventArgs e)
     {
-        if (DataContext is not DiskRow row) 
-            return;
-
+        if (DataContext is not DiskRow row) return;
         var path = GetFirstDroppedFile(e);
-
-        if (path != null) 
-            row.OriginalPath = path;
+        if (path != null) row.OriginalPath = path;
     }
 
     private void ModifiedDrop(object sender, DragEventArgs e)
     {
-        if (DataContext is not DiskRow row) 
-            return;
-
+        if (DataContext is not DiskRow row) return;
         var path = GetFirstDroppedFile(e);
-
-        if (path != null) 
-            row.ModifiedPath = path;
+        if (path != null) row.ModifiedPath = path;
     }
 }
